@@ -1295,12 +1295,10 @@ bool shouldAugmentCall(CallInst *op, const GradientUtils *gutils) {
 #ifdef PRINT_AUGCALL
     if (called)
       llvm::errs() << "primal modified " << called->getName()
-                   << " modified via reading from memory"
-                   << "\n";
+                   << " modified via reading from memory" << "\n";
     else
       llvm::errs() << "primal modified " << *op->getCalledValue()
-                   << " modified via reading from memory"
-                   << "\n";
+                   << " modified via reading from memory" << "\n";
 #endif
   }
 
@@ -1311,12 +1309,10 @@ bool shouldAugmentCall(CallInst *op, const GradientUtils *gutils) {
 #ifdef PRINT_AUGCALL
     if (called)
       llvm::errs() << "primal modified " << called->getName()
-                   << " modified via return"
-                   << "\n";
+                   << " modified via return" << "\n";
     else
       llvm::errs() << "primal modified " << *op->getCalledValue()
-                   << " modified via return"
-                   << "\n";
+                   << " modified via return" << "\n";
 #endif
   }
 
@@ -1759,13 +1755,10 @@ void clearFunctionAttributes(Function *f) {
   }
   Attribute::AttrKind attrs[] = {
 #if LLVM_VERSION_MAJOR >= 17
-    Attribute::NoFPClass,
+      Attribute::NoFPClass,
 #endif
-    Attribute::NoUndef,
-    Attribute::NonNull,
-    Attribute::ZExt,
-    Attribute::NoAlias
-  };
+      Attribute::NoUndef, Attribute::NonNull, Attribute::ZExt,
+      Attribute::NoAlias};
   for (auto attr : attrs) {
 #if LLVM_VERSION_MAJOR >= 14
     if (f->hasRetAttribute(attr)) {
@@ -2652,12 +2645,10 @@ const AugmentedReturn &EnzymeLogic::CreateAugmentedPrimal(
 
   llvm::Attribute::AttrKind attrs[] = {
 #if LLVM_VERSION_MAJOR >= 17
-    llvm::Attribute::NoFPClass,
+      llvm::Attribute::NoFPClass,
 #endif
-    llvm::Attribute::NoAlias,
-    llvm::Attribute::NoUndef,
-    llvm::Attribute::NonNull,
-    llvm::Attribute::ZExt,
+      llvm::Attribute::NoAlias,   llvm::Attribute::NoUndef,
+      llvm::Attribute::NonNull,   llvm::Attribute::ZExt,
   };
   for (auto attr : attrs) {
 #if LLVM_VERSION_MAJOR >= 14
@@ -6442,7 +6433,8 @@ llvm::Function *EnzymeLogic::CreateNoFree(RequestContext context, Function *F) {
                          "lgamma_r",
                          "__kmpc_global_thread_num",
                          "nlopt_force_stop",
-                         "cudaRuntimeGetVersion"
+                         "cudaRuntimeGetVersion",
+                         "__catalyst_inactive_callback"
   };
   // clang-format on
 
